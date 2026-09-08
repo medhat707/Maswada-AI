@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { Search, Settings } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const navItems = [
   { label: "Overview", to: "/" },
@@ -21,7 +22,7 @@ export function Header() {
               Maswada AI
             </Link>
             <span className="hidden text-xs text-muted-foreground sm:inline">
-              Glassmorphism UI
+              Smart notes with AI
             </span>
           </div>
 
@@ -36,43 +37,17 @@ export function Header() {
                 className="transition-colors hover:text-foreground"
               >
                 {item.label}
-              </Link>
+              </Link> 
             ))}
           </nav>
 
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              className="glass-border inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition hover:text-foreground"
-              aria-label="Search"
-            >
-              <Search className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              className="glass-border inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition hover:text-foreground"
-              aria-label="Settings"
-            >
-              <Settings className="h-4 w-4" />
-            </button>
+            <Button variant="outline">
+               العربيه
+            </Button>
           </div>
         </div>
         
-        {/* Mobile navigation */}
-        <nav
-          aria-label="Primary mobile"
-          className="mt-3 flex items-center gap-3 text-xs font-medium text-muted-foreground sm:hidden"
-        >
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              to={item.to}
-              className="glass-border rounded-full px-3 py-1 transition-colors hover:text-foreground"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
       </div>
     </header>
   )
