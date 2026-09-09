@@ -5,51 +5,63 @@ import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
-import { useUser } from "@clerk/clerk-react"
+import { useAuth, useUser } from "@clerk/clerk-react"
+import { useCallback, useEffect, useState } from "react"
+import type { Note } from "@/types"
+import useNotesAPI from "@/hooks/useNotesAPI"
+import { useNavigate } from "react-router-dom"
 
-const typography = [
-  { label: "Display", className: "text-4xl md:text-5xl font-semibold" },
-  { label: "Heading", className: "text-2xl md:text-3xl font-semibold" },
-  { label: "Title", className: "text-xl font-semibold" },
-  { label: "Body", className: "text-base text-muted-foreground" },
-  { label: "Caption", className: "text-sm text-muted-foreground" },
-]
 
-const spacing = [
-  "Section spacing: `py-12` or `py-16`",
-  "Card padding: `p-6` or `p-8`",
-  "Grid gap: `gap-4` or `gap-6`",
-  "Stacked spacing: `space-y-4` to `space-y-8`",
-]
 
 export function HomePage() {
 
-  const {user} = useUser();
 
-  if(!user) {
-    return <div> Loadinng ... </div>
+  const {getAllNotes , createNote} = useNotesAPI();
+  const [notes, setNotes] = useState<Note[]>([]);
+  const navigate = useNavigate();
+
+  const handleAddNote = async () => {
+    const note = await createNote({title: "New Note", content: "This is a new note222222221."});
+    navigate(`/notes/${note.id}`);
+  }
+  
+
+  const handleNoteClick = (id: string) =>{
+    navigate(`/notes/${id}`);
   }
 
-  console.log("User info: ", user);
+  useEffect(() => {
+    const fetchData = async () => {
+      const notes = await getAllNotes();
+      setNotes(notes);
+    }
+    fetchData();
+  }, [getAllNotes]);
+
+
+
   return (
     <div className="space-y-12">
       {/* Hero card */}
       <GlassCard className="px-4 py-6 flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <h1 className="text-xl font-semibold"> My Notes</h1>
-          <Button><Plus />Add notes</Button>
+          <Button onClick={handleAddNote}>
+            <Plus />
+            Add notes
+          </Button>
         </div>
         <div className="relative">
           <Search className="absolute top-2.5 left-3 h-4 w-4 text-muted-foreground hei" />
           <Input className="pl-10" placeholder="Search notes..." />        
         </div>
         <div className="flex flex-col gap-4">
-          <GlassCard className="p-4">
-            My Note1
-          </GlassCard>
-          <GlassCard className="p-4">
-            My Note2
-          </GlassCard>
+          {notes.map((note) => (
+            <GlassCard onClick={ ()=>handleNoteClick(note.id)} key = {note.id} className= "p-4 cursor-pointer">
+              <h2 className= "text-lg">{note.title}</h2>
+            </GlassCard>
+
+        ))}
         </div>
       </GlassCard>
 
