@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import useNotesAPI from "@/hooks/useNotesAPI";
 import { useEffect, useState } from "react";
 import type { Note } from "@/types";
+import { toast } from "sonner";
 
 
 function NotesDetailsPage() {
@@ -35,12 +36,15 @@ function NotesDetailsPage() {
         if (!note) return;
         await updateNote(note.id, {title: note.title, content: note.content});
         setUserEdited(false);
+        toast.success("Note saved successfully");
     }
 
     const handleDeleteClick = async()=>{
         if (!note) return;
         await deleteNote(note.id);
         navigate(-1);
+        toast.success("Note deletedd successfully");
+
     }
             
 
