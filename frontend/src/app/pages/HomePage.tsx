@@ -21,7 +21,7 @@ export function HomePage() {
   const navigate = useNavigate();
 
   const handleAddNote = async () => {
-    const note = await createNote({title: "New Note", content: "This is a new note222222221."});
+    const note = await createNote({title: "New Note", content: ""});
     navigate(`/notes/${note.id}`);
   }
   

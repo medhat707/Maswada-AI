@@ -19,4 +19,7 @@ type UpdateNoteDTO = {
     content: string;
 }
 
-export type {Note, CreateNoteDTO, UpdateNoteDTO};
+type AutoSaveState = "initial" | "saving" | "saved" | "unsaved";
+
+
+export type {Note, CreateNoteDTO, UpdateNoteDTO, AutoSaveState};
