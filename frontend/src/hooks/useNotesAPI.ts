@@ -1,9 +1,7 @@
 import type { CreateNoteDTO, Note, UpdateNoteDTO } from "@/types"
 import { useAuth } from "@clerk/clerk-react";
 import { useCallback, useState } from "react";
-
-
-const API_BASE_URL = import.meta.env.VITE_PUBLIC_API_BASE_URL || 'http://localhost:3001';
+import {API_BASE_URL} from "@/lib/utils"
 
 
 function useNotesAPI() {

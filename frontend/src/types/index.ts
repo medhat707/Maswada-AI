@@ -21,5 +21,13 @@ type UpdateNoteDTO = {
 
 type AutoSaveState = "initial" | "saving" | "saved" | "unsaved";
 
+type CreateTranslateDTO = {
+    noteId?: string;
+    content?: string;
+}
 
-export type {Note, CreateNoteDTO, UpdateNoteDTO, AutoSaveState};
+type CreateTranslateResponseDTO = {
+    result: string;
+}
+
+export type {Note, CreateNoteDTO, UpdateNoteDTO, AutoSaveState, CreateTranslateDTO, CreateTranslateResponseDTO};

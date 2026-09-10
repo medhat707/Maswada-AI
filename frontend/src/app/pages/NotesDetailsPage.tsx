@@ -1,6 +1,6 @@
 import { GlassCard } from "@/components/common/GlassCard";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Trash } from "lucide-react";
+import { ArrowLeft, Languages, Trash } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import { DeleteDialog } from "@/components/common/DeleteDialog";
 import { AutoSaveIndicator } from "@/components/common/AutoSaveIndicator";
 import { useAutoSave } from "@/hooks/useAutoSave";
+import useAIFeatures from "@/hooks/useAIFeatures";
 
 
 function NotesDetailsPage() {
@@ -21,6 +22,7 @@ function NotesDetailsPage() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     const[userEdited, setUserEdited] = useState(false);
+    const {translate} = useAIFeatures();
 
     const handleBackClick = () => {
         navigate(-1);
@@ -56,10 +58,25 @@ function NotesDetailsPage() {
         if (!note) return;
         await deleteNote(note.id);
         navigate(-1);
-        toast.success("Note deletedd successfully");
-
+        toast.success("Note deleted successfully");
     }
             
+
+    // adding ai feature: translate
+    const handleTranslate  = async()=>{
+        if (!note) return;
+        const result = await translate({noteId: note.id})
+        if(result){
+            setNote(prev=> prev? {...prev, content: result} : null);
+            setUserEdited(true);
+            setAutoSaveStatus("unsaved");
+            toast.success("Note saved successfully");
+            return
+        }
+
+        toast.error("Failed to translate note");
+
+    }
 
     useEffect(() => {
         const fetchNote = async ()=> {
@@ -94,8 +111,11 @@ function NotesDetailsPage() {
                     handleDelete={handleDeleteClick} />
 
             </div>
+            <div>
+                <Button onClick={handleTranslate}><Languages />Translate</Button>
+            </div>
             <div className="flex flex-col gap-4">
-                <Input 
+                <Textarea 
                 value={note?.title || ""}  
                 className="bg-transparent dark:bg-transparent border-none focus-visible:ring-0" 
                 placeholder="title" 
