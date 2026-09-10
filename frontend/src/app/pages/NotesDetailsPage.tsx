@@ -8,6 +8,7 @@ import useNotesAPI from "@/hooks/useNotesAPI";
 import { useEffect, useState } from "react";
 import type { Note } from "@/types";
 import { toast } from "sonner";
+import { DeleteDialog } from "@/components/common/DeleteDialog";
 
 
 function NotesDetailsPage() {
@@ -24,7 +25,7 @@ function NotesDetailsPage() {
 
     const handleTitleChange = (e: React.ChangeEvent<HTMLTextAreaElement>)=>{
         setNote((prev) => prev? { ...prev, title: e.target.value} : null);
-        setUserEdited(true)
+        setUserEdited(true);
     }
 
     const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>)=>{
@@ -68,7 +69,11 @@ function NotesDetailsPage() {
         <GlassCard className="flex flex-col gap-4 p-4">
             <div className="justify-between flex justify-between">
                 <Button variant="outline" className="cursor-pointer" onClick={handleBackClick}><ArrowLeft />Back</Button>
-                <Button variant="destructive" className="cursor-pointer" onClick={handleDeleteClick}><Trash />Delete</Button>
+                <DeleteDialog   
+                    buttonText="Delete Note" 
+                    title="Delete Note" 
+                    description="This will permanently delete this note." 
+                    handleDelete={handleDeleteClick} />
 
             </div>
             <div className="flex flex-col gap-4">
