@@ -1,8 +1,7 @@
 import { GlassCard } from "@/components/common/GlassCard";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Languages, Trash } from "lucide-react";
+import { ArrowLeft, Book, Languages, Trash } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useNotesAPI from "@/hooks/useNotesAPI";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -23,7 +22,7 @@ function NotesDetailsPage() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     const[userEdited, setUserEdited] = useState(false);
-    const {translate} = useAIFeatures();
+    const {translate, summarize} = useAIFeatures();
 
     const handleBackClick = () => {
         navigate(-1);
@@ -78,6 +77,20 @@ function NotesDetailsPage() {
 
     }
 
+    // adding ai feature: summarize notes
+    const handleSummary = async()=>{
+        if (!note) return;
+        const result = await summarize({noteId: note.id})
+        if(result){
+            setNote(prev=> prev? {...prev, content: result} : null);
+            setUserEdited(true);
+            setAutoSaveStatus("unsaved");
+            return
+        }
+
+        toast.error("Failed to summarize note");
+    }
+
     // allow detecting the translated text direction
     const detectTextDirection = useMemo(()=> translationDirection(note?.content || ""),[note?.content])
 
@@ -107,8 +120,10 @@ function NotesDetailsPage() {
                     handleDelete={handleDeleteClick} />
 
             </div>
-            <div>
+            <div className="flex items-center gap-4">
                 <Button onClick={handleTranslate}><Languages />Translate</Button>
+                <Button onClick={handleSummary}><Book />Summarize</Button>
+
             </div>
             <div className="flex flex-col gap-4">
                 <Textarea 
