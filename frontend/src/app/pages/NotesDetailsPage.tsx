@@ -5,13 +5,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useNotesAPI from "@/hooks/useNotesAPI";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { AutoSaveState, Note } from "@/types";
 import { toast } from "sonner";
 import { DeleteDialog } from "@/components/common/DeleteDialog";
 import { AutoSaveIndicator } from "@/components/common/AutoSaveIndicator";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import useAIFeatures from "@/hooks/useAIFeatures";
+import { translationDirection } from "@/lib/utils";
 
 
 function NotesDetailsPage() {
@@ -70,13 +71,15 @@ function NotesDetailsPage() {
             setNote(prev=> prev? {...prev, content: result} : null);
             setUserEdited(true);
             setAutoSaveStatus("unsaved");
-            toast.success("Note saved successfully");
             return
         }
 
         toast.error("Failed to translate note");
 
     }
+
+    // allow detecting the translated text direction
+    const detectTextDirection = useMemo(()=> translationDirection(note?.content || ""),[note?.content])
 
     useEffect(() => {
         const fetchNote = async ()=> {
@@ -90,14 +93,7 @@ function NotesDetailsPage() {
         fetchNote();
     }, [ getNoteById, id]);
 
-
-
-
-
     return (
-
-
-
         <GlassCard className="flex flex-col gap-4 p-4">
             <div className="justify-between flex justify-between">
                 <div className="flex gap-2 items-center">
@@ -121,6 +117,7 @@ function NotesDetailsPage() {
                 placeholder="title" 
                 onChange={handleTitleChange} />
                 <Textarea 
+                dir={detectTextDirection}
                 value={note?.content || ""}  
                 className="bg-transparent dark:bg-transparent border-none focus-visible:ring-0 min-h-[400px]" 
                 placeholder="content"
