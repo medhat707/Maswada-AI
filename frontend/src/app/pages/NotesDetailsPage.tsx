@@ -1,6 +1,6 @@
 import { GlassCard } from "@/components/common/GlassCard";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Book, Languages, Trash } from "lucide-react";
+import { ArrowLeft, Book, Languages, Pencil, Trash } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Textarea } from "@/components/ui/textarea";
 import useNotesAPI from "@/hooks/useNotesAPI";
@@ -12,6 +12,8 @@ import { AutoSaveIndicator } from "@/components/common/AutoSaveIndicator";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import useAIFeatures from "@/hooks/useAIFeatures";
 import { translationDirection } from "@/lib/utils";
+import { DropdownMenu } from "radix-ui";
+import { DropdownMenuDemo } from "@/components/common/DropdownMenu";
 
 
 function NotesDetailsPage() {
@@ -22,7 +24,7 @@ function NotesDetailsPage() {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     const[userEdited, setUserEdited] = useState(false);
-    const {translate, summarize} = useAIFeatures();
+    const {translate, summarize, rewrite} = useAIFeatures();
 
     const handleBackClick = () => {
         navigate(-1);
@@ -94,6 +96,19 @@ function NotesDetailsPage() {
     // allow detecting the translated text direction
     const detectTextDirection = useMemo(()=> translationDirection(note?.content || ""),[note?.content])
 
+    // enhancing the note text
+    const handleRewriteClick = async(mode: string)=>{
+        if (!note) return;
+        const result = await rewrite({noteId: note.id , mode})
+        if(result){
+            setNote(prev=> prev? {...prev, content: result} : null);
+            setUserEdited(true);
+            setAutoSaveStatus("unsaved");
+            return
+        }
+
+        toast.error("Failed to rewrite note");
+    }
     useEffect(() => {
         const fetchNote = async ()=> {
             if (!id) return;
@@ -123,7 +138,9 @@ function NotesDetailsPage() {
             <div className="flex items-center gap-4">
                 <Button onClick={handleTranslate}><Languages />Translate</Button>
                 <Button onClick={handleSummary}><Book />Summarize</Button>
-
+                <DropdownMenuDemo 
+                   handleRewrite={handleRewriteClick}
+                />
             </div>
             <div className="flex flex-col gap-4">
                 <Textarea 

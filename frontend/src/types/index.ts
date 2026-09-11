@@ -39,4 +39,15 @@ type CreateSummaryResponseDTO = {
     result: string;
 }
 
-export type {Note, CreateNoteDTO, UpdateNoteDTO, AutoSaveState, CreateTranslateDTO, CreateTranslateResponseDTO, CreateSummaryDTO, CreateSummaryResponseDTO};
+type CreateRewriteDTO = {
+    noteId?: string;
+    content?: string;
+    mode?: string;
+}
+
+type CreateRewriteResponseDTO = {
+    result: string;
+}
+
+
+export type {Note, CreateNoteDTO, UpdateNoteDTO, AutoSaveState, CreateTranslateDTO, CreateTranslateResponseDTO, CreateSummaryDTO, CreateSummaryResponseDTO, CreateRewriteDTO, CreateRewriteResponseDTO};
