@@ -1,6 +1,6 @@
 import type { CreateNoteDTO, Note, UpdateNoteDTO } from "@/types"
 import { useAuth } from "@clerk/clerk-react";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import {API_BASE_URL} from "@/lib/utils"
 
 

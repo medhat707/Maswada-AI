@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-import { Search, Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useContext } from "react"
 import { LanguageContext } from "@/context/LanguageContext"

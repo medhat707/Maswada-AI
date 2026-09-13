@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { message, type Locale } from "."
+import { message } from "."
 import { LanguageContext } from "@/context/LanguageContext"
 import { IntlProvider } from "react-intl"
 

@@ -1,21 +1,19 @@
 import { GlassCard } from "@/components/common/GlassCard";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Book, Languages, Pencil, Trash } from "lucide-react";
+import { ArrowLeft, Book, Languages } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Textarea } from "@/components/ui/textarea";
 import useNotesAPI from "@/hooks/useNotesAPI";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
-import type { AutoSaveState, Note } from "@/types";
+import type { Note } from "@/types";
 import { toast } from "sonner";
 import { DeleteDialog } from "@/components/common/DeleteDialog";
 import { AutoSaveIndicator } from "@/components/common/AutoSaveIndicator";
 import { useAutoSave } from "@/hooks/useAutoSave";
 import useAIFeatures from "@/hooks/useAIFeatures";
 import { translationDirection } from "@/lib/utils";
-import { DropdownMenu } from "radix-ui";
 import { DropdownMenuDemo } from "@/components/common/DropdownMenu";
-import { LanguageContext } from "@/context/LanguageContext";
 
 
 function NotesDetailsPage() {
