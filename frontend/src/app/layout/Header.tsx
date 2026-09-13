@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { useContext } from "react"
 import { LanguageContext } from "@/context/LanguageContext"
 import { FormattedMessage } from "react-intl"
+import { UserButton } from "@clerk/clerk-react"
 
 const navItems = [
   { labelId: "nav.overview", to: "/" },
@@ -55,6 +56,7 @@ export function Header() {
             <Button onClick={toggleLanguage} variant="outline">
                {isRTL? "English" : "العربيه"}
             </Button>
+            <UserButton/>
           </div>
         </div>
         
