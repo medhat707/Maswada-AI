@@ -1,4 +1,4 @@
-import { ArrowUpRight, Sparkles } from "lucide-react"
+import { ArrowUpRight, Filter, Sparkles } from "lucide-react"
 
 import { GlassCard } from "@/components/common/GlassCard"
 import { Button } from "@/components/ui/button"
@@ -6,7 +6,7 @@ import { Plus } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import { useAuth, useUser } from "@clerk/clerk-react"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { FormattedMessage, useIntl } from "react-intl"
 import type { Note } from "@/types"
 import useNotesAPI from "@/hooks/useNotesAPI"
@@ -21,6 +21,7 @@ export function HomePage() {
   const [notes, setNotes] = useState<Note[]>([]);
   const navigate = useNavigate();
   const intl = useIntl();
+  const [searchQuery, setSearchQuery] =  useState("");
 
   const handleAddNote = async () => {
     const note = await createNote({title: intl.formatMessage({ id: "home.newNoteTitle" }), content: ""});
@@ -31,6 +32,22 @@ export function HomePage() {
   const handleNoteClick = (id: string) =>{
     navigate(`/notes/${id}`);
   }
+ 
+
+  // handle search notes
+  const handleSearchNotes = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(e.target.value);
+  } 
+  const filteredNotes = useMemo(() => {
+    if(!searchQuery.trim()){
+      return notes;
+    }
+
+    const query = searchQuery.toLowerCase ();
+    return notes.filter((note) => 
+      note.title.toLowerCase().includes(query)
+    )
+  }, [notes, searchQuery] )
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,10 +72,10 @@ export function HomePage() {
         </div>
         <div className="relative">
           <Search className="absolute top-2.5 left-3 h-4 w-4 text-muted-foreground hei" />
-          <Input className="pl-10" placeholder={intl.formatMessage({ id: "home.searchPlaceholder" })} />        
+          <Input onChange={handleSearchNotes} className="pl-10" placeholder={intl.formatMessage({ id: "home.searchPlaceholder" })} />        
         </div>
         <div className="flex flex-col gap-4">
-          {notes.map((note) => (
+          {filteredNotes.map((note) => (
             <GlassCard onClick={ ()=>handleNoteClick(note.id)} key = {note.id} className= "p-4 cursor-pointer">
               <h2 className= "text-lg">{note.title}</h2>
             </GlassCard>
