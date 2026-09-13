@@ -1,0 +1,42 @@
+{
+    "title": "مسوده",
+    "description": "مسوداتي الذكيه بالذكاء الاصطناعي",
+
+    "nav.overview": "نظرة عامة",
+    "nav.workflows": "سير العمل",
+    "nav.insights": "رؤى",
+
+    "home.myNotes": "ملاحظاتي",
+    "home.addNotes": "إضافة ملاحظة",
+    "home.searchPlaceholder": "البحث في الملاحظات...",
+    "home.newNoteTitle": "ملاحظة جديدة",
+
+    "noteDetails.back": "رجوع",
+    "noteDetails.translate": "ترجمة",
+    "noteDetails.summarize": "تلخيص",
+    "noteDetails.switchMode": "تغيير الأسلوب",
+    "noteDetails.titlePlaceholder": "العنوان",
+    "noteDetails.contentPlaceholder": "المحتوى",
+    "noteDetails.deleteNote": "حذف الملاحظة",
+    "noteDetails.deleteDescription": "سيتم حذف هذه الملاحظة نهائياً.",
+    "noteDetails.savedSuccess": "تم حفظ الملاحظة بنجاح",
+    "noteDetails.deletedSuccess": "تم حذف الملاحظة بنجاح",
+    "noteDetails.translateError": "فشل في ترجمة الملاحظة",
+    "noteDetails.summarizeError": "فشل في تلخيص الملاحظة",
+    "noteDetails.rewriteError": "فشل في إعادة كتابة الملاحظة",
+
+    "notFound.title": "هذه الصفحة غير موجودة",
+    "notFound.description": "المسار الذي تبحث عنه غير موجود بعد.",
+    "notFound.backHome": "العودة للرئيسية",
+
+    "dialog.cancel": "إلغاء",
+    "dialog.delete": "حذف",
+
+    "autoSave.saving": "جاري الحفظ",
+    "autoSave.saved": "تم الحفظ بنجاح",
+    "autoSave.unsaved": "غير محفوظ",
+
+    "rewrite.comedy": "كوميدي",
+    "rewrite.casual": "عادي",
+    "rewrite.formal": "رسمي"
+}

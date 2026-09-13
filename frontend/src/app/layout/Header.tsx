@@ -1,14 +1,24 @@
 import { Link } from "react-router-dom"
 import { Search, Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useContext } from "react"
+import { LanguageContext } from "@/context/LanguageContext"
+import { FormattedMessage } from "react-intl"
 
 const navItems = [
-  { label: "Overview", to: "/" },
-  { label: "Workflows", to: "/" },
-  { label: "Insights", to: "/" },
+  { labelId: "nav.overview", to: "/" },
+  { labelId: "nav.workflows", to: "/" },
+  { labelId: "nav.insights", to: "/" },
 ]
 
+
+
 export function Header() {
+
+  // handling swiching languges
+  const translationContext = useContext(LanguageContext)
+  const {isRTL, toggleLanguage} = translationContext!;
+
   return (
     <header className="sticky top-0 z-50 w-full">
       <div className="mx-auto w-full max-w-6xl px-4 pt-4 sm:px-6 lg:px-8">
@@ -19,10 +29,10 @@ export function Header() {
               to="/"
               className="text-sm font-semibold tracking-wide"
             >
-              Maswada AI
+              <FormattedMessage id="title"/>
             </Link>
             <span className="hidden text-xs text-muted-foreground sm:inline">
-              Smart notes with AI
+              <FormattedMessage id="description"/>
             </span>
           </div>
 
@@ -32,18 +42,18 @@ export function Header() {
           >
             {navItems.map((item) => (
               <Link
-                key={item.label}
+                key={item.labelId}
                 to={item.to}
                 className="transition-colors hover:text-foreground"
               >
-                {item.label}
-              </Link> 
+                <FormattedMessage id={item.labelId} />
+              </Link>
             ))}
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button variant="outline">
-               العربيه
+            <Button onClick={toggleLanguage} variant="outline">
+               {isRTL? "English" : "العربيه"}
             </Button>
           </div>
         </div>

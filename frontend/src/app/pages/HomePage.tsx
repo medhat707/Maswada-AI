@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 import { useAuth, useUser } from "@clerk/clerk-react"
 import { useCallback, useEffect, useState } from "react"
+import { FormattedMessage, useIntl } from "react-intl"
 import type { Note } from "@/types"
 import useNotesAPI from "@/hooks/useNotesAPI"
 import { useNavigate } from "react-router-dom"
@@ -19,9 +20,10 @@ export function HomePage() {
   const {getAllNotes , createNote} = useNotesAPI();
   const [notes, setNotes] = useState<Note[]>([]);
   const navigate = useNavigate();
+  const intl = useIntl();
 
   const handleAddNote = async () => {
-    const note = await createNote({title: "New Note", content: ""});
+    const note = await createNote({title: intl.formatMessage({ id: "home.newNoteTitle" }), content: ""});
     navigate(`/notes/${note.id}`);
   }
   
@@ -45,15 +47,15 @@ export function HomePage() {
       {/* Hero card */}
       <GlassCard className="px-4 py-6 flex flex-col gap-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-semibold"> My Notes</h1>
+          <h1 className="text-xl font-semibold"><FormattedMessage id="home.myNotes" /></h1>
           <Button onClick={handleAddNote}>
             <Plus />
-            Add notes
+            <FormattedMessage id="home.addNotes" />
           </Button>
         </div>
         <div className="relative">
           <Search className="absolute top-2.5 left-3 h-4 w-4 text-muted-foreground hei" />
-          <Input className="pl-10" placeholder="Search notes..." />        
+          <Input className="pl-10" placeholder={intl.formatMessage({ id: "home.searchPlaceholder" })} />        
         </div>
         <div className="flex flex-col gap-4">
           {notes.map((note) => (

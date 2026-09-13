@@ -1,5 +1,6 @@
 import type { AutoSaveState } from "@/types";
 import { CircleAlertIcon, CircleCheckIcon, Loader2Icon } from "lucide-react";
+import { FormattedMessage } from "react-intl";
 
 type Props = {
     autoSaveStatus: AutoSaveState;
@@ -7,29 +8,24 @@ type Props = {
 
 export function AutoSaveIndicator({autoSaveStatus} : Props){
 
-
     switch(autoSaveStatus){
         case "saving":
             return  <span className="text-sm text-zinc-500" >
             <Loader2Icon className="size=4"/>
-            saving 
+            <FormattedMessage id="autoSave.saving" />
             </span>
         case "saved":
-            return  <span className="text-sm text-green-500 flex items-center gap-2"> 
+            return  <span className="text-sm text-green-500 flex items-center gap-2">
             <CircleCheckIcon className="size=4"/>
-            saved successfully
+            <FormattedMessage id="autoSave.saved" />
             </span>
         case "unsaved":
             return  <span className="text-sm text-orange-500 flex items-center gap-2">
-                <CircleAlertIcon className="size=4"/> 
-                unsaved 
+                <CircleAlertIcon className="size=4"/>
+                <FormattedMessage id="autoSave.unsaved" />
                  </span>
         case "initial":
         default:
             return null;
-
-
     }
-
- 
 }

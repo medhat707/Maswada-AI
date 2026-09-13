@@ -1,4 +1,5 @@
 import { Trash2Icon } from "lucide-react"
+import { FormattedMessage } from "react-intl"
 
 import {
   AlertDialog,
@@ -22,11 +23,11 @@ type DeleteNoteProps = {
 }
 
 
-export function DeleteDialog({ handleDelete, buttonText="Delete", title, description}: DeleteNoteProps) {
+export function DeleteDialog({ handleDelete, buttonText, title, description}: DeleteNoteProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">{buttonText}</Button>
+        <Button variant="destructive">{buttonText ?? <FormattedMessage id="dialog.delete" />}</Button>
       </AlertDialogTrigger>
       <AlertDialogContent size="sm">
         <AlertDialogHeader>
@@ -39,13 +40,10 @@ export function DeleteDialog({ handleDelete, buttonText="Delete", title, descrip
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel variant="outline">Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete} variant="destructive">Delete</AlertDialogAction>
+          <AlertDialogCancel variant="outline"><FormattedMessage id="dialog.cancel" /></AlertDialogCancel>
+          <AlertDialogAction onClick={handleDelete} variant="destructive"><FormattedMessage id="dialog.delete" /></AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   )
-
-
 }
-

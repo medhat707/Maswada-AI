@@ -1,0 +1,42 @@
+{
+    "title": "maswada",
+    "description": "Smart notes with AI",
+
+    "nav.overview": "Overview",
+    "nav.workflows": "Workflows",
+    "nav.insights": "Insights",
+
+    "home.myNotes": "My Notes",
+    "home.addNotes": "Add notes",
+    "home.searchPlaceholder": "Search notes...",
+    "home.newNoteTitle": "New Note",
+
+    "noteDetails.back": "Back",
+    "noteDetails.translate": "Translate",
+    "noteDetails.summarize": "Summarize",
+    "noteDetails.switchMode": "Switch mode",
+    "noteDetails.titlePlaceholder": "Title",
+    "noteDetails.contentPlaceholder": "Content",
+    "noteDetails.deleteNote": "Delete Note",
+    "noteDetails.deleteDescription": "This will permanently delete this note.",
+    "noteDetails.savedSuccess": "Note saved successfully",
+    "noteDetails.deletedSuccess": "Note deleted successfully",
+    "noteDetails.translateError": "Failed to translate note",
+    "noteDetails.summarizeError": "Failed to summarize note",
+    "noteDetails.rewriteError": "Failed to rewrite note",
+
+    "notFound.title": "This page drifted away",
+    "notFound.description": "The route you are looking for does not exist yet.",
+    "notFound.backHome": "Back to home",
+
+    "dialog.cancel": "Cancel",
+    "dialog.delete": "Delete",
+
+    "autoSave.saving": "saving",
+    "autoSave.saved": "saved successfully",
+    "autoSave.unsaved": "unsaved",
+
+    "rewrite.comedy": "Comedy",
+    "rewrite.casual": "Casual",
+    "rewrite.formal": "Formal"
+}
