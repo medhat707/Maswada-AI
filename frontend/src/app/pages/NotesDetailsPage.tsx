@@ -150,7 +150,7 @@ function NotesDetailsPage() {
             <div className="flex flex-col gap-4">
                 <Textarea 
                 value={note?.title || ""}  
-                className="bg-transparent dark:bg-transparent border-none focus-visible:ring-0" 
+                className="bg-transparent dark:bg-transparent border-none focus-visible:ring-0 !text-3xl font-bold" 
                 placeholder={intl.formatMessage({ id: "noteDetails.titlePlaceholder" })}
                 onChange={handleTitleChange} />
                 <Textarea 

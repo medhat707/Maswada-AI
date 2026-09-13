@@ -19,16 +19,19 @@ type Props = {
 
 export function LanguageContextProvider ({children}: Props){
 
-    const [locale, setLocale] = useState<Locale>(defaultLocale);
+    const [locale, setLocale] = useState<Locale>(() => localStorage.getItem("locale") as Locale || defaultLocale);
     const isRTL = locale === "ar";
     const toggleLanguage = ()=>{
         setLocale(isRTL? defaultLocale: "ar")
     }
 
+
+
     // change text dir based on locale
     useEffect(() =>{
         document.documentElement.dir = isRTL? "rtl" : "ltr"; 
         document.documentElement.lang = locale;
+        localStorage.setItem("locale", locale);
 
     },[locale, isRTL])
 
