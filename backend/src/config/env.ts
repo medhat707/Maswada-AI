@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import path from 'path';
 
 dotenv.config();
 
@@ -11,7 +10,7 @@ export const config = {
     publishableKey: process.env.CLERK_PUBLISHABLE_KEY || '',
     secretKey: process.env.CLERK_SECRET_KEY || '',
   },
-  sqlitePath: process.env.SQLITE_PATH || path.join(__dirname, '../../data/maswada.db'),
+  databaseUrl: process.env.DATABASE_URL || 'postgres://localhost:5432/maswada',
   openai: {
     apiKey: process.env.OPENAI_API_KEY || '',
     organization: process.env.OPENAI_ORGANIZATION_ID || '',
