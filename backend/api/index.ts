@@ -1,3 +1,5 @@
+// Force pg to be bundled — Sequelize loads it dynamically and Vercel's tree-shaker misses it
+import 'pg';
 import { createApp } from '../src/app';
 import { initializeDatabase } from '../src/db/sequelize';
 
