@@ -56,14 +56,13 @@ export function HomePage() {
 
 
   return (
-    <div className="space-y-12">
-      {/* Hero card */}
-      <GlassCard className="px-4 py-6 flex flex-col gap-4">
-        <div className="flex justify-between items-center">
-          <h1 className="text-xl font-semibold"><FormattedMessage id="home.myNotes" /></h1>
-          <Button onClick={handleAddNote}>
+    <div className="space-y-8 sm:space-y-12">
+      <GlassCard className="px-3 py-4 sm:px-4 sm:py-6 flex flex-col gap-3 sm:gap-4">
+        <div className="flex justify-between items-center gap-2">
+          <h1 className="text-lg sm:text-xl font-semibold"><FormattedMessage id="home.myNotes" /></h1>
+          <Button size="sm" onClick={handleAddNote}>
             <Plus />
-            <FormattedMessage id="home.addNotes" />
+            <span className="hidden sm:inline"><FormattedMessage id="home.addNotes" /></span>
           </Button>
         </div>
         <div className="relative">

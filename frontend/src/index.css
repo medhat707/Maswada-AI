@@ -91,8 +91,11 @@
    Reusable glass effect patterns
    ============================================ */
 @layer components {
-  /* Glass card - for content cards with rounded corners */
   .glass-card {
     @apply rounded-2xl bg-white/70 backdrop-blur-xl border border-black/10 shadow-xl;
+  }
+
+  .dark .glass-card {
+    @apply bg-white/5 border-white/10;
   }
 }

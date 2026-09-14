@@ -125,10 +125,10 @@ function NotesDetailsPage() {
     }, [ getNoteById, id]);
 
     return (
-        <GlassCard className="flex flex-col gap-4 p-4">
-            <div className="justify-between flex justify-between">
+        <GlassCard className="flex flex-col gap-3 p-3 sm:gap-4 sm:p-4">
+            <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex gap-2 items-center">
-                <Button variant="outline" className="cursor-pointer" onClick={handleBackClick}><ArrowLeft /><FormattedMessage id="noteDetails.back" /></Button>
+                <Button variant="outline" size="sm" className="cursor-pointer" onClick={handleBackClick}><ArrowLeft /><span className="hidden sm:inline"><FormattedMessage id="noteDetails.back" /></span></Button>
                 <AutoSaveIndicator autoSaveStatus={autoSaveStatus} />
                 </div>
                 <DeleteDialog
@@ -138,23 +138,23 @@ function NotesDetailsPage() {
                     handleDelete={handleDeleteClick} />
 
             </div>
-            <div className="flex items-center gap-4">
-                <Button onClick={handleTranslate}><Languages /><FormattedMessage id="noteDetails.translate" /></Button>
-                <Button onClick={handleSummary}><Book /><FormattedMessage id="noteDetails.summarize" /></Button>
-                <DropdownMenuDemo 
+            <div className="flex flex-wrap items-center gap-2 sm:gap-4">
+                <Button size="sm" onClick={handleTranslate}><Languages /><span className="hidden sm:inline"><FormattedMessage id="noteDetails.translate" /></span></Button>
+                <Button size="sm" onClick={handleSummary}><Book /><span className="hidden sm:inline"><FormattedMessage id="noteDetails.summarize" /></span></Button>
+                <DropdownMenuDemo
                    handleRewrite={handleRewriteClick}
                 />
             </div>
             <div className="flex flex-col gap-4">
-                <Textarea 
-                value={note?.title || ""}  
-                className="bg-transparent dark:bg-transparent border-none focus-visible:ring-0 !text-3xl font-bold" 
+                <Textarea
+                value={note?.title || ""}
+                className="bg-transparent dark:bg-transparent border-none focus-visible:ring-0 !text-xl sm:!text-3xl font-bold"
                 placeholder={intl.formatMessage({ id: "noteDetails.titlePlaceholder" })}
                 onChange={handleTitleChange} />
-                <Textarea 
+                <Textarea
                 dir={detectTextDirection}
-                value={note?.content || ""}  
-                className="bg-transparent dark:bg-transparent border-none focus-visible:ring-0 min-h-[400px]" 
+                value={note?.content || ""}
+                className="bg-transparent dark:bg-transparent border-none focus-visible:ring-0 min-h-[250px] sm:min-h-[400px]"
                 placeholder={intl.formatMessage({ id: "noteDetails.contentPlaceholder" })}
                 onChange={handleContentChange}  />
             </div>
